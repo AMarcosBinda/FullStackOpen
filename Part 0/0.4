@@ -1,0 +1,36 @@
+sequenceDiagram
+    participant browser
+    participant server
+
+    Note right of browser: El usuario escribe un texto en el campo de texto y hace click en "Save"
+
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
+    activate server
+    server-->>browser: 302 Found (Redireccion a /notes)
+    deactivate server
+
+    Note right of browser: El navegador recarga la pagina redirigiendose a /notes
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
+    activate server
+    server-->>browser: HTML document (200 OK)
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate server
+    server-->>browser: CSS file (200 OK)
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+    activate server
+    server-->>browser: JavaScript file (200 OK)
+    deactivate server
+    
+    Note right of browser: El 'main.js' solicita la lista actualizada de notas para el navegador
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate server
+    server-->>browser: JSON data (200 OK)
+    deactivate server
+
+    Note right of browser: El navegador actualiza la lista de notas en su interfaz
