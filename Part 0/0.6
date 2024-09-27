@@ -1,0 +1,17 @@
+sequenceDiagram
+    participant browser
+    participant server
+
+    Note right of browser: El usuario añade una nueva nota
+
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+    activate server
+    server-->>browser: 201 Created
+    deactivate server
+    
+    Note right of browser: La nueva nota se muestra en la página sin recargar, usando la DOM API para actualizar la interfaz
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate server
+    server-->>browser: JSON actualizado con las nuevas notas (200 OK)
+    deactivate server
